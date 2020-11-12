@@ -18,12 +18,20 @@
 
       gtag("config", "G-B6J3M8V3NP");
 
+      // .log
+      // .info
+      // .warn , .error
       // tracking a buy
-      function buyTracker() {
-        console.log("event triggered");
-        gtag("event", "product_bought", {
+      function buyTracker(productName) {
+        console.info("event triggered",  {
           event_category: "bbb",
           event_label: "ccc",
+          product_name: productName}
+        );
+        gtag("event", "product_bought", {
+          event_category: "purchase",
+          event_label: "ccc",
+          product_name: productName
         });
       }
 
@@ -32,6 +40,7 @@
       function generateId() {
         return parseInt(Math.random() * 1000000); // 123123123123123
       }
+      //Get User ID
       function getUserId() {
         console.log(document.cookie);
 
@@ -40,12 +49,12 @@
           .find((row) => row.startsWith("user_id")); // "user=123123"
 
         let userId = null;
-        // New User
+    // New User
         if (cookieValue === null || cookieValue === undefined) {
 
           userId = generateId();
           document.cookie = "user_id=" + userId;
-          //Existing User - he has already a cookie
+    //Existing User - he has already a cookie
         } else {
           userId = cookieValue.split("=")[1];
         }
